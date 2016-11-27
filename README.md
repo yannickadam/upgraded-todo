@@ -2,7 +2,7 @@
 
 ### Goal
 Create a "todo" application using:
-- NodeJS/MongoDB to store date
+- NodeJS/MySQL to store date. This data sounds very relational.
 - Angular2 for the desktop application (using Material design)
 - Ionic2 for mobile apps (ios+android) - But maybe responsive is sufficient (Progressive webapp in the future?)
 
@@ -15,4 +15,5 @@ Create a "todo" application using:
 - Tasks can have an "In Progress" state. Not only "done". 
 - Tasks can have a picture and a description. For example, "Change the Fridge's filter can show a picture of the filter and instructions on how to do it". 
 - Tasks can be timed. Useful for work tasks and reporting. Time can also be entered manually. 
+- Tasks can be repeated. Clean the [...] every [...].
 - Reports on categories (Total time spent, etc..)
