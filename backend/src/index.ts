@@ -4,21 +4,14 @@
  */
 import * as Koa from 'koa';                 // Koa Framework
 import * as Parser from 'koa-bodyparser';   
-import * as mongoose from 'mongoose';       // Object Modeling for MongoDB 
 import {config} from './utilities/configuration';
 import {logger, koaLogger} from './utilities/logger';
 import {koaRoutes} from './routes';
+import {sequelize} from './database';
 
 (async ()=> {
 
     try {
-        // Connect to Database
-        mongoose.PromiseProvider.set(global.Promise);  // Ensure Mongoose uses native promises - mongoose.Promise = global.Promise generates a TS error (ES6 module imports are constants)
-        let dbUrl = config.get("database"); 
-        logger.info(`Connecting to Database ${dbUrl}` );
-        await mongoose.connect( dbUrl );
-        logger.info(`Database connected.`);
-
         // Initialize Koa
         const app = new Koa();
 

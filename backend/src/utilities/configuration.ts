@@ -11,6 +11,6 @@ if( !obj.config ) {
     obj.config = nconf.argv().env().file({ file: "config.json" });
 }
 
-export var config = obj.config; 
+export const config = obj.config; 
 
 

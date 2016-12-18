@@ -1,6 +1,8 @@
 {
     "name": "project",
     "port" : "3125",
-    "database" : "mongodb://localhost/project",
-    "secret" : "secret_key"    
+    "database_name" : "upgraded_todo",
+    "database_user" : "root",
+    "database_password" : "test",
+    "secret" : "secret_key"   
 }

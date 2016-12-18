@@ -3,7 +3,7 @@
 ### Goal
 Create a "todo" application using:
 - NodeJS/MySQL to store date. This data sounds very relational.
-- Angular2 for the desktop application (using Material design)
+- Angular for the desktop application (using Material design)
 - Ionic2 for mobile apps (ios+android) - But maybe responsive is sufficient (Progressive webapp in the future?)
 
 ### Requirements

@@ -21,10 +21,12 @@ export async function Create (ctx:Koa.Context, next:any) {
 
     var hash = bcrypt.hashSync(data.password);
  
-    var user = new User({ name: data.name, password: hash });
+    let user = await User.create( { email: data.email, password: hash } );
+
+    //var user = new User({ name: data.name, password: hash });
     
-    var test = await user.save();
-    logger.info("Created:", test);
+    //var test = await user.save();
+    logger.info("Created:", user);
 
     ctx.body = "Created";
 }
@@ -44,7 +46,7 @@ export async function Login(ctx:Koa.Context, next:any) {
     let response:any = {};
 
     // Find user in Database
-    let user:any = await User.findOne({name: data.name});
+    let user:any = await User.findOne( { where: { email: data.email} }); 
 
     // Check password match
     if( user && bcrypt.compareSync( data.password, user.password ) ) {
