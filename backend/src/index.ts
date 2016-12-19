@@ -7,7 +7,7 @@ import * as Parser from 'koa-bodyparser';
 import {config} from './utilities/configuration';
 import {logger, koaLogger} from './utilities/logger';
 import {koaRoutes} from './routes';
-import {sequelize} from './database';
+import {db} from './database';
 
 (async ()=> {
 

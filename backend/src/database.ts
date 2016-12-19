@@ -1,13 +1,10 @@
 /**
- *
+ * Single instance of Sequelize for the application
  */
-import * as Sequelize from 'sequelize';
+import * as sqlib from 'sequelize';
 import {config} from './utilities/configuration';
 
-const db = config
-
-
-export const sequelize = new Sequelize(config.get("database_name"), config.get("database_user"), config.get("database_password"), {
+export const db = new sqlib(config.get("database_name"), config.get("database_user"), config.get("database_password"), {
   host: 'localhost',
   dialect: 'mysql',
 
@@ -17,3 +14,6 @@ export const sequelize = new Sequelize(config.get("database_name"), config.get("
     idle: 10000
   }
 });
+
+export const Sequelize = sqlib;
+

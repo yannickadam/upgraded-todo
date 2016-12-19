@@ -51,7 +51,7 @@ export async function Login(ctx:Koa.Context, next:any) {
     // Check password match
     if( user && bcrypt.compareSync( data.password, user.password ) ) {
         // Create Token
-        const token = jwt.sign({user:data.name}, config.get("secret") );
+        const token = jwt.sign({id:user.id}, config.get("secret") );
         response.token = token;
     } else {
         response.error = "Unable to authenticate user.";

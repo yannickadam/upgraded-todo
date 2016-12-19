@@ -3,7 +3,7 @@
  *
  */
 import * as Sequelize from 'sequelize';
-import {sequelize} from '../database';
+import {db} from '../database';
 
 export interface UserAttribute {
     id?:string;
@@ -14,20 +14,18 @@ export interface UserAttribute {
 
 export interface UserInstance extends Sequelize.Instance<UserAttribute>, UserAttribute { }
 
-export interface AccountModel extends Sequelize.Model<UserInstance, UserAttribute> { }
-
-export const User = sequelize.define<UserInstance, UserAttribute>("User", {
+export const User = db.define<UserInstance, UserAttribute>("User", {
                 "id": {
                     "type": Sequelize.INTEGER,
                     autoIncrement: true,
                     "primaryKey": true
                 },
                 "firstname": {
-                    "type": Sequelize.STRING(128),
+                    "type": Sequelize.STRING(40),
                     "allowNull": true
                 },
                 "lastname" : {
-                    "type": Sequelize.STRING(128),
+                    "type": Sequelize.STRING(40),
                     "allowNull": true                  
                 },
                 "email": {
