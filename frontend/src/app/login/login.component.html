@@ -1,0 +1,7 @@
+LOGIN!
+
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <input type=email required [(ngModel)]="model.email" name="email" #email="ngModel">
+  <input type=password required [(ngModel)]="model.password" name="password" #password="ngModel">
+  <button type="submit">Login</button>
+</form>

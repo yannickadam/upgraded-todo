@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@types/node": "^6.0.48",
+    "@types/whatwg-fetch": "0.0.33",
     "angular2-router-loader": "^0.3.4",
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^2.2.4",

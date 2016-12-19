@@ -7,7 +7,7 @@ import * as jwt from 'jsonwebtoken';
 import {config} from '../utilities/configuration';
 import {logger} from '../utilities/logger';
 
-const EXCLUDE = ["/users"];
+const EXCLUDE = ["/users", "/users/login"];
 
 /**
  * 
@@ -22,11 +22,15 @@ export async function Check(ctx:Koa.Context, next:any) {
       return;
     }
 
-    if( !jwt.verify( ctx.request.header.token, config.get("secret") ) ) {
-          ctx.response.status = 403;
-          ctx.body = "Invalid signature. IP Address logged.";
-          logger(`TOKEN: Invalid signature (${ctx.request.ip})`);
-          return;
+    try {    
+      if( !jwt.verify( ctx.request.header.token, config.get("secret") ) ) {
+        throw("Invalid token");
+      }
+    } catch(e) {
+      ctx.response.status = 403;
+      ctx.body = "Invalid signature. IP Address logged.";
+      logger.info(`TOKEN: Invalid signature (${ctx.request.ip})`);
+      return;
     }
 
     const token = jwt.decode( ctx.request.header.token );

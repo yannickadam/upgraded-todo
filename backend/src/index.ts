@@ -8,6 +8,7 @@ import {config} from './utilities/configuration';
 import {logger, koaLogger} from './utilities/logger';
 import {koaRoutes} from './routes';
 import {Check} from './utilities/token';
+import {Cors} from './utilities/cors';
 import {prepare} from './models/prepare_db';
 
 (async ()=> {
@@ -21,6 +22,9 @@ import {prepare} from './models/prepare_db';
 
         // First middleware to inject should be the logger
         app.use( koaLogger );
+
+        // Enable CORS requests
+        app.use( Cors );
 
         // Parse body params and expose on context.
         app.use( Parser() );

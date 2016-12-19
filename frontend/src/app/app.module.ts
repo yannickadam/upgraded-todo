@@ -2,27 +2,41 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router';
 import { rootRouterConfig } from './app.routes';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
 import { AboutComponent } from './about/about.component';
+import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { MainComponent } from './main/main.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+
+import { ConfigurationService } from './services/config.service';
+import { CategoryService } from './services/category.service';
+import { UserService } from './services/user.service';
+import { FetchService } from './services/fetch.service';
 
 
 @NgModule({
   declarations: [
+    MainComponent,
     HomeComponent,
     AboutComponent,
+    LoginComponent,    
     AppComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    RouterModule.forRoot(rootRouterConfig, { useHash: true })
+    RouterModule.forRoot(rootRouterConfig, { useHash: true }),
+    FormsModule
   ],
   providers: [
+    ConfigurationService,
+    CategoryService,
+    UserService,
+    FetchService   
   ],
   bootstrap: [ AppComponent ]
 })
