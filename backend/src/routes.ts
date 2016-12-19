@@ -10,6 +10,7 @@ import * as Router from 'koa-router';
 // Import modules here
 import {Users} from './modules/users';
 import {Categories} from './modules/categories';
+import {Tasks} from './modules/tasks';
 
 // Initialize router
 const router = new Router();
@@ -19,7 +20,10 @@ router.post('/users', Users.create);
 router.post('/users/login', Users.login);
 
 router.post('/categories', Categories.create);
-router.get('categories', Categories.read);
+router.get('/categories', Categories.read);
+
+router.post('/categories/:id/tasks', Tasks.create);
+router.get('/tasks/:id', Tasks.read);
 
 // 
 export var koaRoutes = router.routes();

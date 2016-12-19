@@ -25,6 +25,7 @@
     "@types/koa-router": "^7.0.21",
     "@types/mongoose": "^4.5.41",
     "@types/nconf": "0.0.32",
+    "@types/sequelize": "^4.0.39",
     "nodemon": "^1.10.2",
     "ts-node": "^1.2.3"
   },
@@ -32,6 +33,7 @@
     "start": "node ./build/index.js",
     "build": "tsc --pretty",
     "dev": "node ./node_modules/nodemon/bin/nodemon.js -x \"node ./node_modules/ts-node/dist/bin.js\" ./src/index.ts | node node_modules/bunyan/bin/bunyan",
+    "debug": "node --inspect ./build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

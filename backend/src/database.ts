@@ -13,7 +13,6 @@ export const db = new sqlib(config.get("database_name"), config.get("database_us
     min: 0,
     idle: 10000
   }
+  
 });
-
-export const Sequelize = sqlib;
 

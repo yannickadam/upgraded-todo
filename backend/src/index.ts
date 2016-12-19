@@ -7,25 +7,33 @@ import * as Parser from 'koa-bodyparser';
 import {config} from './utilities/configuration';
 import {logger, koaLogger} from './utilities/logger';
 import {koaRoutes} from './routes';
-import {db} from './database';
+import {Check} from './utilities/token';
+import {prepare} from './models/prepare_db';
 
 (async ()=> {
 
     try {
+        // Prepare Database
+        prepare();
+
         // Initialize Koa
         const app = new Koa();
 
         // First middleware to inject should be the logger
         app.use( koaLogger );
 
-        // 
+        // Parse body params and expose on context.
         app.use( Parser() );
+
+        // Check tokens for relevant routes.
+        app.use ( Check );
 
         // Apply Routes
         app.use( koaRoutes );
 
         app.use( (ctx:Koa.Context)=>{
-            ctx.body="Hello";
+            ctx.response.status = 404;
+            ctx.body="Not sure what you are looking for";
         })
 
         // Start listening
