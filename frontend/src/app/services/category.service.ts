@@ -35,5 +35,25 @@ export class CategoryService {
     return this.categories;
   }
 
+  public async createCategory(name:string) {
+
+    let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'token': this.userService.token
+      },
+      body: JSON.stringify({name:name})
+    });
+    
+    if( response.status !== 201 ) {
+      throw( await response.text() );
+    }
+
+    let category = await response.json();
+
+    return category;
+  }
 
 }

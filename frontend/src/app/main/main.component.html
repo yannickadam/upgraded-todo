@@ -1,5 +1,10 @@
 Display Categories !!!!
 
-<ul *ngFor="let category of categories">
-  <li>{{category.name}}</li>
+<ul *ngFor="let cat of categories">
+  <li>{{cat.name}}</li>
 </ul>
+
+<form (ngSubmit)="createCategory()" #categoryForm="ngForm">
+  <input type=text required [(ngModel)]="model.category" name="category" #category="ngModel">
+  <button type="submit">Create</button>
+</form>
