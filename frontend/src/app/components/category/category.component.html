@@ -1,0 +1,14 @@
+<div *ngIf="category">
+  
+  Category {{category.name}}
+
+  <ul *ngFor="let task of category.tasks">
+    <li><a [routerLink]="['/task/', task.id]">{{task.name}}</a> <button (click)="deleteTask(task.id)">Delete</button> </li>
+  </ul>
+
+  <form (ngSubmit)="createTask()" #taskForm="ngForm">
+    <input type=text required [(ngModel)]="model.task" name="task" #task="ngModel">
+    <button type="submit">Create</button>
+  </form>
+
+</div>

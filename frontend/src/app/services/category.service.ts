@@ -36,6 +36,29 @@ export class CategoryService {
   }
 
   /**
+   * Retrieves a single category
+   */
+  public async getCategory(id:number) {
+   let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories/${id}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'token': this.userService.token
+      }
+    });
+    
+    if( response.status !== 200 ) {
+      throw( await response.text());
+    }
+
+    let category = await response.json();
+
+    return category;
+  }  
+
+
+  /**
    * Adds a single category, and upon success stores it locally.
    * TODO: Sub-Categories
    */
@@ -82,6 +105,34 @@ export class CategoryService {
     // Remove Category locally
     let idx = this.categories.findIndex( e => e.id === id );
     this.categories.splice(idx,1);
+  }
+
+  /**
+   * Creates a task in the given category
+   */
+  public async createTask(categoryId:number, taskName:string) {
+
+    let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories/${categoryId}/tasks`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'token': this.userService.token
+      },
+      body: JSON.stringify({name:taskName})
+    });
+    
+    if( response.status !== 201 ) {
+      throw( await response.text() );
+    }
+
+    let task = await response.json();
+
+    return task;
+  }
+
+  public async deleteTask() {
+
   }
 
 

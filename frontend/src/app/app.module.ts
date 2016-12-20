@@ -10,6 +10,7 @@ import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { MainComponent } from './components/main/main.component';
+import { CategoryComponent } from './components/category/category.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { ConfigurationService } from './services/config.service';
@@ -23,7 +24,8 @@ import { FetchService } from './services/fetch.service';
     MainComponent,
     HomeComponent,
     AboutComponent,
-    LoginComponent,    
+    LoginComponent,  
+    CategoryComponent,  
     AppComponent
   ],
   imports: [

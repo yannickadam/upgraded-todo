@@ -12,6 +12,7 @@ import {config} from '../utilities/configuration';
 import {Category} from '../models/category';
 import {UserHasCategory} from '../models/userhascategory';
 import {User} from '../models/user';
+import {Task} from '../models/task';
 import {db} from '../database';
 
 /**
@@ -37,10 +38,10 @@ export async function Create(ctx:Koa.Context, next:any) {
 }
 
 /**
- * Retrieves categories for a User.
+ * Retrieves root categories for a User.
  * 
  */
-export async function Read(ctx:Koa.Context, next:any) {
+export async function ReadAll(ctx:Koa.Context, next:any) {
    
     // Extract & log request data
     const data = ctx.request.body;
@@ -51,6 +52,27 @@ export async function Read(ctx:Koa.Context, next:any) {
         let user = await User.findById( token.id );
         let categories = await user.getCategories();
         ctx.body = categories;
+        ctx.response.status = 200;
+    } catch(e) {
+        ctx.body = e;
+    } 
+}
+
+/**
+ * Retrieves a single category, including tasks
+ * TODO: Check that it belongs to the user...
+ */
+export async function Read(ctx:Koa.Context, next:any) {
+   
+    // Extract & log request data
+    const data = ctx.request.body;
+    const token = ctx.request.token;
+    logger.info("Received:", data);
+
+    try {
+        let category = await Category.findById(ctx.params.id, {include: ['tasks']});
+        //let category = await Category.findById(ctx.params.id);
+        ctx.body = category;
         ctx.response.status = 200;
     } catch(e) {
         ctx.body = e;
@@ -75,4 +97,4 @@ export async function Delete(ctx:Koa.Context, next:any) {
 }
 
 
-export var Categories = { create: Create, read: Read, delete: Delete };
+export var Categories = { create: Create, readAll: ReadAll, read: Read, delete: Delete };

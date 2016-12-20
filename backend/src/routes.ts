@@ -20,7 +20,8 @@ router.post('/users', Users.create);
 router.post('/users/login', Users.login);
 
 router.post('/categories', Categories.create);
-router.get('/categories', Categories.read);
+router.get('/categories', Categories.readAll);
+router.get('/categories/:id', Categories.read);
 router.delete('/categories/:id', Categories.delete);
 
 router.post('/categories/:id/tasks', Tasks.create);

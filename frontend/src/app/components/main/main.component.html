@@ -1,7 +1,7 @@
 Display Categories !!!!
 
 <ul *ngFor="let cat of categories">
-  <li>{{cat.name}} <button (click)="deleteCategory(cat.id)">Delete</button> </li>
+  <li><a [routerLink]="['/category/', cat.id]">{{cat.name}}</a> <button (click)="deleteCategory(cat.id)">Delete</button> </li>
 </ul>
 
 <form (ngSubmit)="createCategory()" #categoryForm="ngForm">
