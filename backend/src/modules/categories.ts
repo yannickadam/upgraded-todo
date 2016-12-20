@@ -51,9 +51,28 @@ export async function Read(ctx:Koa.Context, next:any) {
         let user = await User.findById( token.id );
         let categories = await user.getCategories();
         ctx.body = categories;
+        ctx.response.status = 200;
     } catch(e) {
         ctx.body = e;
     } 
 }
 
-export var Categories = { create: Create, read: Read };
+/**
+ * Deletes a category
+ */
+export async function Delete(ctx:Koa.Context, next:any) {
+    const data = ctx.request.body;
+    const token = ctx.request.token;
+    logger.info("Received:", data);
+
+    try {
+        await Category.destroy({where:{id:ctx.params.id}});
+        ctx.response.status = 204;
+        ctx.body = "DELETE SUCCESSFUL";
+    } catch(e) {
+        ctx.body = e;
+    } 
+}
+
+
+export var Categories = { create: Create, read: Read, delete: Delete };

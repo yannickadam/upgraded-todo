@@ -21,6 +21,7 @@ router.post('/users/login', Users.login);
 
 router.post('/categories', Categories.create);
 router.get('/categories', Categories.read);
+router.delete('/categories/:id', Categories.delete);
 
 router.post('/categories/:id/tasks', Tasks.create);
 router.get('/tasks/:id', Tasks.read);

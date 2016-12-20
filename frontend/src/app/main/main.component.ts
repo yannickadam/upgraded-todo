@@ -15,6 +15,9 @@ export class MainComponent {
 
   constructor(private userService:UserService, private categoryService:CategoryService, private router:Router) {}
 
+  /**
+   * Retrieve the current state of categories when the component is created.
+   */
   async ngOnInit() {
     try {
       this.categories = await this.categoryService.getCategories();
@@ -23,10 +26,26 @@ export class MainComponent {
     }
   }
 
+  /**
+   * Creates a new category
+   * TODO: Associate to sub-categories
+   */
   public async createCategory() {
     try {
       let cat = await this.categoryService.createCategory(this.model.category);
-      console.log("created ",cat);
+      this.model = {};
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  /**
+   * Deletes a category
+   * TODO: Since this could be very destructive, we need to have some kind of warning :)
+   */
+  public async deleteCategory(id) {
+    try {
+      await this.categoryService.deleteCategory(id);
     } catch(e) {
       console.log(e);
     }
