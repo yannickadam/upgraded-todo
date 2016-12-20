@@ -6,10 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
-import { AboutComponent } from './about/about.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { MainComponent } from './main/main.component';
+import { AboutComponent } from './components/about/about.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { MainComponent } from './components/main/main.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { ConfigurationService } from './services/config.service';
