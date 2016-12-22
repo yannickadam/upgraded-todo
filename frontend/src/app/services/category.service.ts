@@ -9,50 +9,63 @@ import {FetchService} from './fetch.service';
 @Injectable()
 export class CategoryService {
 
-  public categories:any[];
+  public rootCategories:any[];
+  public allCategories:any[] = [];
 
   constructor(private config:ConfigurationService, private userService:UserService, private fetchService:FetchService) {}
 
   /**
    * Retrieves all categories from the backend, and store them locally
    */
-  public async getCategories() {    
-   let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories`, {     
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'token': this.userService.token
+  public async getCategories() {
+
+    if( !this.rootCategories ) {
+
+      let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories`, {     
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'token': this.userService.token
+        }
+      });
+      
+      if( response.status !== 200 ) {
+        throw( await response.text());
       }
-    });
-    
-    if( response.status !== 200 ) {
-      throw( await response.text());
+
+      this.rootCategories = await response.json();
     }
-
-    this.categories = await response.json();
-
-    return this.categories;
+    
+    return this.rootCategories;
   }
 
   /**
    * Retrieves a single category
    */
   public async getCategory(id:number) {
-   let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories/${id}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'token': this.userService.token
-      }
-    });
-    
-    if( response.status !== 200 ) {
-      throw( await response.text());
-    }
 
-    let category = await response.json();
+    // Check if we have this category in cache
+    let category = this.allCategories.find(e=>e.id === id);
+    if( !category ) {
+    
+      let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories/${id}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'token': this.userService.token
+        }
+      });
+    
+      if( response.status !== 200 ) {
+        throw( await response.text());
+      }
+
+      // Replace category in list
+      category = await response.json();
+      this.allCategories.push(category);
+    }
 
     return category;
   }  
@@ -62,7 +75,7 @@ export class CategoryService {
    * Adds a single category, and upon success stores it locally.
    * TODO: Sub-Categories
    */
-  public async createCategory(name:string) {
+  public async createCategory(name:string, parentId?:number) {
 
     let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories`, {
       method: 'POST',
@@ -71,15 +84,24 @@ export class CategoryService {
         'Content-Type': 'application/json',
         'token': this.userService.token
       },
-      body: JSON.stringify({name:name})
+      body: JSON.stringify({name:name, parentId:parentId})
     });
     
     if( response.status !== 201 ) {
       throw( await response.text() );
     }
 
-    let category = await response.json();
-    this.categories.push(category);
+    // Save new category locally
+    let category = await response.json();    
+    this.allCategories.push(category);
+
+    // If we have a parent, we should also add it to this parent.
+    if( category.parentId ) {
+      let parent = this.allCategories.find(e=>e.id === category.parentId);
+      if( parent ) {
+        parent.subs.push(category);
+      }
+    }
 
     return category;
   }
@@ -87,7 +109,7 @@ export class CategoryService {
   /**
    * 
    */
-  public async deleteCategory(id:string) {
+  public async deleteCategory(id:number, parentId?:number) {
 
     let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories/${id}`, {
       method: 'DELETE',
@@ -103,8 +125,23 @@ export class CategoryService {
     }
 
     // Remove Category locally
-    let idx = this.categories.findIndex( e => e.id === id );
-    this.categories.splice(idx,1);
+    let idx = this.allCategories.findIndex( e => e.id === id );
+    if( idx != -1 ) {
+      this.allCategories.splice(idx,1);
+    }
+
+    // If we have a parent, remove from parent as well
+    if( parentId ) {
+      let parent = this.allCategories.find( e => e.id === parentId );
+      if( parent ) {
+        let idx = parent.subs.findIndex( e=> e.id === id );
+        if( idx != -1 ) {
+          parent.subs.splice(idx,1);
+        }
+      }
+      
+    }    
+
   }
 
   /**
@@ -131,8 +168,27 @@ export class CategoryService {
     return task;
   }
 
-  public async deleteTask() {
+  /**
+   * Deletes a single task
+   */
+  public async deleteTask(categoryId:number, taskId:number) {
+    let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/tasks/${taskId}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'token': this.userService.token
+      }
+    });
 
+    if( response.status !== 204 ) {
+      throw( await response.text() );
+    }
+
+    // Remove task locally
+    let category = this.allCategories.find( e => e.id === categoryId);
+    let idx = category.tasks.findIndex( e => e.id === taskId );
+    category.tasks.splice(idx,1);
   }
 
 

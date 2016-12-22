@@ -51,4 +51,22 @@ export async function Read(ctx:Koa.Context, next:any) {
     } 
 }
 
-export var Tasks = { create: Create, read: Read };
+/**
+ * Deletes a task
+ * TODO: Check that we have the rights to delete the task
+ */
+export async function Delete(ctx:Koa.Context, next:any) {
+    const data = ctx.request.body;
+    const token = ctx.request.token;
+    logger.info("Received:", data);
+
+    try {
+        await Task.destroy({where:{id:ctx.params.id}});
+        ctx.response.status = 204;
+        ctx.body = "DELETE SUCCESSFUL";
+    } catch(e) {
+        ctx.body = e;
+    } 
+}
+
+export var Tasks = { create: Create, read: Read, delete: Delete };

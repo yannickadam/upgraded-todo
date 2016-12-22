@@ -2,6 +2,17 @@
   
   Category {{category.name}}
 
+  <h3>Categories</h3>
+  <ul *ngFor="let sub of category.subs">
+    <li><a [routerLink]="['/category/', sub.id]">{{sub.name}}</a> <button (click)="deleteCategory(sub.id)">Delete</button> </li>
+  </ul> 
+
+  <form (ngSubmit)="createCategory()" #categoryForm="ngForm">
+    <input type=text required [(ngModel)]="model.category" name="cat" #cat="ngModel">
+    <button type="submit">Create</button>
+  </form>
+
+  <h3>Tasks</h3>
   <ul *ngFor="let task of category.tasks">
     <li><a [routerLink]="['/task/', task.id]">{{task.name}}</a> <button (click)="deleteTask(task.id)">Delete</button> </li>
   </ul>

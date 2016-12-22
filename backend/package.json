@@ -1,7 +1,7 @@
 {
   "name": "UpgradedTodoBackend",
   "version": "1.0.0",
-  "description": "Koa2 starter using TypeScript",
+  "description": "Backend for Upgraded TODO",
   "main": "index.js",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -41,7 +41,7 @@
     "url": "git+https://github.com/yannickadam/koa2-typescript-starter.git"
   },
   "author": "Yannick Adam <yannick.adam@gmail.com>",
-  "license": "ISC",
+  "license": "GPLV3",
   "bugs": {
     "url": "https://github.com/yannickadam/koa2-typescript-starter/issues"
   },

@@ -26,6 +26,7 @@ router.delete('/categories/:id', Categories.delete);
 
 router.post('/categories/:id/tasks', Tasks.create);
 router.get('/tasks/:id', Tasks.read);
+router.delete('/tasks/:id', Tasks.delete);
 
 // 
 export var koaRoutes = router.routes();

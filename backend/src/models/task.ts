@@ -9,6 +9,7 @@ export interface TaskAttribute {
     id?:string;
     name:string;
     categoryId:string;
+    completed?:boolean;
 }
 
 export interface TaskInstance extends Sequelize.Instance<TaskAttribute>, TaskAttribute { }
@@ -26,6 +27,11 @@ const definition = {
     categoryId: {
         type: Sequelize.INTEGER,
         allowNull:false
+    },
+    completed: {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
+        defaultValue: false
     }
 }
 

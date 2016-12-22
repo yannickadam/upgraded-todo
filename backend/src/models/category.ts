@@ -7,8 +7,9 @@ import {db} from '../database';
 
 
 export interface CategoryAttribute {
-    id?:string;
+    id?:number;
     name:string;
+    parentId?:number;
 }
 
 export interface CategoryInstance extends Sequelize.Instance<CategoryAttribute>, CategoryAttribute { }
@@ -22,6 +23,10 @@ const definition = {
     name: {
         type: Sequelize.STRING,
         allowNull: false
+    }, 
+    parentId: {
+        type: Sequelize.INTEGER,
+        allowNull: true
     }
 };
 

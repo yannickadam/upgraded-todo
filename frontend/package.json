@@ -1,18 +1,14 @@
 {
-  "name": "angular2-seed",
+  "name": "UpgradedTodoFrontend",
   "version": "1.0.0",
-  "description": "A simple starter Angular2 project",
+  "description": "Angular2 frontend for Upgraded Todo",
   "scripts": {
     "build": "webpack --progress",
     "watch": "npm run build -- --watch",
     "server": "webpack-dev-server --inline --progress --port 3000 --content-base src",
     "start": "npm run server"
   },
-  "contributors": [
-    "Rob Wormald <robwormald@gmail.com>",
-    "PatrickJS <github@gdi2290.com>"
-  ],
-  "license": "MIT",
+  "license": "GPLV3",
   "dependencies": {
     "@angular/common": "~2.2.1",
     "@angular/compiler": "~2.2.1",

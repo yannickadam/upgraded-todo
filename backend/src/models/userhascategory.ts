@@ -2,8 +2,8 @@ import * as Sequelize from 'sequelize';
 import {db} from '../database';
 
 export interface UserHasCategoryAttribute {
-    userId:string;
-    categoryId:string;
+    userId:number;
+    categoryId:number;
 }
 
 export interface UserHasCategoryInstance extends Sequelize.Instance<UserHasCategoryAttribute>, UserHasCategoryAttribute { }
