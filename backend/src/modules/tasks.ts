@@ -69,4 +69,23 @@ export async function Delete(ctx:Koa.Context, next:any) {
     } 
 }
 
-export var Tasks = { create: Create, read: Read, delete: Delete };
+/**
+ * 
+ */
+export async function Update(ctx:Koa.Context, next:any) {
+    const data = ctx.request.body;
+    const token = ctx.request.token;
+    logger.info("Received:", data);
+    
+    try {        
+        let task = await Task.findById(ctx.params.id);
+        task = await task.update({completed:data.completed});
+        ctx.response.status = 200;
+        ctx.body = task;
+    } catch(e) {
+        ctx.response.status = 400;
+        ctx.body = e;
+    }   
+}
+
+export var Tasks = { create: Create, read: Read, delete: Delete, update: Update };

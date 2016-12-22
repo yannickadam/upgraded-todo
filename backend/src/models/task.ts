@@ -6,9 +6,9 @@ import * as Sequelize from 'sequelize';
 import {db} from '../database';
 
 export interface TaskAttribute {
-    id?:string;
+    id?:number;
     name:string;
-    categoryId:string;
+    categoryId:number;
     completed?:boolean;
 }
 

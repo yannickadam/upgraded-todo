@@ -191,5 +191,29 @@ export class CategoryService {
     category.tasks.splice(idx,1);
   }
 
+  /**
+   * 
+   */
+  public async updateTask(task:any):Promise<any> {
+    
+    let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/tasks/${task.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'token': this.userService.token
+      },
+      body: JSON.stringify(task)
+    });
+
+    if( response.status !== 200 ) {
+      throw( await response.text() );
+    }
+
+    let updatedTask = await response.json();
+
+    return updatedTask;
+  }
+
 
 }

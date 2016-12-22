@@ -7,7 +7,7 @@ import {db} from '../database';
 import {CategoryInstance} from './category';
 
 export interface UserAttribute {
-    id?:string;
+    id?:number;
     name?:string;
     email?:string;
     password?:string;
