@@ -35,6 +35,11 @@ export class CategoryService {
       }
 
       this.rootCategories = await response.json();
+
+      // Also insert in allCategories
+      this.rootCategories.forEach(element => {
+        this.allCategories.push(element);
+      });
     }
     
     return this.rootCategories;
@@ -99,8 +104,14 @@ export class CategoryService {
     if( category.parentId ) {
       let parent = this.allCategories.find(e=>e.id === category.parentId);
       if( parent ) {
+        if( !parent.subs ) {
+          parent.subs = [];
+        }
         parent.subs.push(category);
       }
+    } else {
+      // If we don't have a parentId, this goes in the root categories
+      this.rootCategories.push(category);
     }
 
     return category;

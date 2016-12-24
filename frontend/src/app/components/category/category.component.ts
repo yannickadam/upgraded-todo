@@ -80,6 +80,22 @@ export class CategoryComponent {
     }
   }
 
+  public async toggleTaskComplete(task) {
+    try {
+      // Get the task
+      //let task = this.category.tasks.find(t=>t.id===taskId);
+      task.completed = !task.completed;
+      await this.categoryService.updateTask(task);
+    } catch(e) {
+      console.log(e);
+    }
+
+  }
+
+
+  /**
+   * Removes subscription when destroyed
+   */
   public async ngOnDestroy() {
     if( this.sub) this.sub.unsubscribe();
   }

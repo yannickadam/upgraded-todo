@@ -14,7 +14,7 @@
 
   <h3>Tasks</h3>
   <ul *ngFor="let task of category.tasks">
-    <li><a [routerLink]="['/task/', task.id]">{{task.name}}</a> <button (click)="deleteTask(task.id)">Delete</button> </li>
+    <li><span [ngClass]="{'completed': task.completed}">{{task.name}}</span> <button (click)="toggleTaskComplete(task)">Toggle</button> <button (click)="deleteTask(task.id)">Delete</button> </li>
   </ul>
 
   <form (ngSubmit)="createTask()" #taskForm="ngForm">

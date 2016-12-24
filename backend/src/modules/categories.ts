@@ -63,6 +63,7 @@ export async function ReadAll(ctx:Koa.Context, next:any) {
         ctx.response.status = 200;
     } catch(e) {
         ctx.body = e;
+        ctx.response.status = 500;
     } 
 }
 
@@ -83,6 +84,7 @@ export async function Read(ctx:Koa.Context, next:any) {
         ctx.response.status = 200;
     } catch(e) {
         ctx.body = e;
+        ctx.response.status = 500;
     } 
 }
 
@@ -100,6 +102,7 @@ export async function Delete(ctx:Koa.Context, next:any) {
         ctx.body = "DELETE SUCCESSFUL";
     } catch(e) {
         ctx.body = e;
+        ctx.response.status = 500;
     } 
 }
 
