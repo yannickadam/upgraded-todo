@@ -22,7 +22,7 @@ var webpackConfig = {
         // your Angular Async Route paths relative to this root directory
       }
     ),
-
+    /*
     new webpack.optimize.UglifyJsPlugin({
       // beautify: true,
       // mangle: false,
@@ -42,7 +42,7 @@ var webpackConfig = {
         negate_iife: false // we need this for lazy v8
       },
       sourceMap: true
-    }),
+    }),*/
 
   ],
 

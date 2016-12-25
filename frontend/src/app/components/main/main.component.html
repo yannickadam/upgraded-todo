@@ -6,5 +6,5 @@ Display Categories !!!!
 
 <form (ngSubmit)="createCategory()" #categoryForm="ngForm">
   <input type=text required [(ngModel)]="model.category" name="category" #category="ngModel">
-  <button type="submit">Create</button>
+  <button md-raised-button color="primary" type="submit">Create</button>
 </form>

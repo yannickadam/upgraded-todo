@@ -1,0 +1,29 @@
+body {
+    font-family: "RobotoDraft", "Roboto", "sans-serif";
+    margin:0;
+}
+
+header {
+    background-color: #3f51b5;
+    color:white;
+    line-height: 2em;
+    padding:5px;
+    display:flex;
+}
+
+header > span.small {
+    flex: 1 1 20px;
+    position: relative;
+}
+
+header > span.large {
+    flex: 3 1 auto;
+    text-align: center;
+}
+
+header > span.icon {
+    text-align: right;
+    top: 4px;
+    position:relative;
+    text-align: right;
+}

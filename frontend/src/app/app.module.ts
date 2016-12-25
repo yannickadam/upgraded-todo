@@ -18,6 +18,7 @@ import { CategoryService } from './services/category.service';
 import { UserService } from './services/user.service';
 import { FetchService } from './services/fetch.service';
 
+import { MaterialModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FetchService } from './services/fetch.service';
     AppComponent
   ],
   imports: [
+    MaterialModule.forRoot(),
     BrowserModule,
     HttpModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: true }),
