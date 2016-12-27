@@ -19,11 +19,21 @@ header > span.small {
 header > span.large {
     flex: 3 1 auto;
     text-align: center;
+    top: 4px;
+    position:relative;    
 }
 
 header > span.icon {
     text-align: right;
-    top: 4px;
-    position:relative;
-    text-align: right;
+}
+
+footer {
+    bottom: 0;
+    position: fixed;
+    background-color: #3f51b5;
+    color:white;
+    line-height: 2em;
+    padding:5px;
+    display:flex;
+    width:100%;
 }

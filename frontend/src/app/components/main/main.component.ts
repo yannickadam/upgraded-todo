@@ -26,6 +26,10 @@ export class MainComponent {
     }
   }
 
+  public selectCategory(id) {
+    this.router.navigate(['/category/', id]);
+  }
+
   /**
    * Creates a new category
    * TODO: Associate to sub-categories

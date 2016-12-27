@@ -1,4 +1,15 @@
-Display Categories !!!!
+
+<md-grid-list cols="2" rowHeight="100px">
+  <md-grid-tile
+      *ngFor="let cat of categories"
+      [colspan]="1"
+      [rowspan]="1"
+      [style.background]="'green'"
+      (click)="selectCategory(cat.id)" >
+    <span class="menu"><button md-mini-fab><md-icon>more_vert</md-icon></button></span>
+    <span class="title">{{cat.name}}</span>
+  </md-grid-tile>
+</md-grid-list>
 
 <ul *ngFor="let cat of categories">
   <li><a [routerLink]="['/category/', cat.id]">{{cat.name}}</a> <button (click)="deleteCategory(cat.id)">Delete</button> </li>
