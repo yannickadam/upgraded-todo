@@ -1,7 +1,29 @@
-LOGIN!
+<div class="login" *ngIf="!userService.isLoggedIn()">
 
-<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-  <input type=email required [(ngModel)]="model.email" name="email" #email="ngModel">
-  <input type=password required [(ngModel)]="model.password" name="password" #password="ngModel">
-  <button type="submit">Login</button>
-</form>
+  <md-card>
+    <md-card-title>Login with Social</md-card-title>
+    <img class="social" src="/media/img/Google+.png" (click)="loginWithSocial('google')">
+  </md-card>
+
+  <md-card>
+    <md-card-title>Login with Username/Password</md-card-title>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <md-input-container>
+        <input md-input type=email required [(ngModel)]="model.email" name="email" #email="ngModel">
+      </md-input-container>
+      <md-input-container>
+        <input md-input type=password required [(ngModel)]="model.password" name="password" #password="ngModel">
+      </md-input-container>
+      <button md-raised-button type="submit">Login</button>
+    </form>
+  </md-card>
+
+</div>
+
+<div *ngIf="userService.isLoggedIn()" class="logout">
+
+  <md-card>
+    <md-card-title>Account Management</md-card-title>
+    <button md-raised-button (click)="logout()">Logout</button>
+  </md-card>
+</div>

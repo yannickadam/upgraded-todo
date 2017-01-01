@@ -13,13 +13,32 @@
   </form>
 
   <h3>Tasks</h3>
-  <ul *ngFor="let task of category.tasks">
-    <li><span [ngClass]="{'completed': task.completed}">{{task.name}}</span> <button (click)="toggleTaskComplete(task)">Toggle</button> <button (click)="deleteTask(task.id)">Delete</button> </li>
+  <ul>
+    <li *ngFor="let task of category.tasks">
+      <div class="check">
+        <md-checkbox [checked]="task.completed" (change)="toggleTaskComplete(task)" [hidden]="task.processing"></md-checkbox>
+        <md-spinner *ngIf="task.processing"></md-spinner>
+      </div>            
+      <div class="task">{{task.name}}</div>
+      <div class="menu">
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+          <md-icon>more_vert</md-icon>
+        </button>
+        <md-menu #menu="mdMenu">
+          <button md-menu-item (click)="deleteTask(task.id)">
+            <md-icon>delete</md-icon>
+            <span>Delete</span>
+          </button>
+        </md-menu>              
+      </div>
+    </li>
   </ul>
 
   <form (ngSubmit)="createTask()" #taskForm="ngForm">
-    <input type=text required [(ngModel)]="model.task" name="task" #task="ngModel">
-    <button type="submit">Create</button>
+    <md-input-container class="example-full-width" [floatingPlaceholder]="false">
+      <input  md-input placeholder="New task" type=text required [(ngModel)]="model.task" name="task" #task="ngModel">      
+    </md-input-container>
+    <button md-icon-button type="submit"><md-icon>add_box</md-icon></button>
   </form>
 
 </div>

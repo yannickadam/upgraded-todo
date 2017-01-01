@@ -13,6 +13,8 @@
     "mysql2": "^1.1.2",
     "nconf": "^0.8.4",
     "pm2": "1.1.3",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1",
     "sequelize": "^4.0.0-2",
     "typescript": "^2.1.4"
   },
@@ -25,6 +27,7 @@
     "@types/koa-router": "^7.0.21",
     "@types/mongoose": "^4.5.41",
     "@types/nconf": "0.0.32",
+    "@types/request-promise": "^4.1.33",
     "@types/sequelize": "^4.0.39",
     "nodemon": "^1.10.2",
     "ts-node": "^1.2.3"

@@ -1,21 +1,14 @@
-
-<md-grid-list cols="2" rowHeight="100px">
-  <md-grid-tile
-      *ngFor="let cat of categories"
-      [colspan]="1"
-      [rowspan]="1"
-      [style.background]="'green'"
-      (click)="selectCategory(cat.id)" >
-    <span class="menu"><button md-mini-fab><md-icon>more_vert</md-icon></button></span>
-    <span class="title">{{cat.name}}</span>
-  </md-grid-tile>
-</md-grid-list>
-
-<ul *ngFor="let cat of categories">
-  <li><a [routerLink]="['/category/', cat.id]">{{cat.name}}</a> <button (click)="deleteCategory(cat.id)">Delete</button> </li>
-</ul>
-
-<form (ngSubmit)="createCategory()" #categoryForm="ngForm">
-  <input type=text required [(ngModel)]="model.category" name="category" #category="ngModel">
-  <button md-raised-button color="primary" type="submit">Create</button>
-</form>
+<div class="flex-container"
+    fxFlex
+    fxLayout="row"
+    fxLayoutAlign="start"
+    fxLayoutWrap="wrap">
+  <div fxFlex="33" fxFlex.xs="50" fxFlex.sm="33" fxFlex.md="20" fxFlex.lg="10" fxFlex.xl="5" *ngFor="let cat of categories" class="cat_item back_green pointer" (click)="selectCategory(cat.id)">
+    <span>{{cat.name}}</span>
+  </div>
+  <div fxFlex="33" fxFlex.xs="50" fxFlex.sm="33" fxFlex.md="20" fxFlex.lg="10" fxFlex.xl="5" class="cat_item back_grey pointer">
+    <a [routerLink]="['/new_category']">
+      <span>New Category</span>
+    </a>
+  </div>
+</div>

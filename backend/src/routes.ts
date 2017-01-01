@@ -18,6 +18,7 @@ const router = new Router();
 // Declare routes below
 router.post('/users', Users.create);
 router.post('/users/login', Users.login);
+router.post('/auth/google', Users.google);
 
 router.post('/categories', Categories.create);
 router.get('/categories', Categories.readAll);

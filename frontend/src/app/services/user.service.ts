@@ -2,20 +2,62 @@
  * 
  */
 import {Injectable} from '@angular/core';
-import {ConfigurationService} from './config.service';
+import {UrlConfig} from '../config/url.config';
 import {FetchService} from './fetch.service';
+import {AuthService} from 'ng2-ui-auth';
+import {Subject}    from 'rxjs/Subject';
+
 
 @Injectable()
 export class UserService {
 
-  public token:string;
+  private userLoginSource = new Subject<boolean>();
 
-  constructor(private config:ConfigurationService, private fetchService:FetchService) {
+  public userLogin$ = this.userLoginSource.asObservable();
+  public token:string;
+  
+
+  constructor(private fetchService:FetchService, private auth:AuthService) {
     this.revive();
   }
 
+  /**
+   * If we have a token, we're logged-in.
+   */
+  public isLoggedIn():boolean {
+    return !!this.token;
+  }
+
+
+  /**
+   * To logout, we simply forget our token.
+   */
+  public logout() {
+    this.token = undefined;
+    localStorage.removeItem("token");
+  }
+
+
+  /**
+   * 
+   */
+  public loginWithSocial(network:string) {
+    const obs = this.auth.authenticate(network).share();
+    obs.subscribe({
+      complete: () => {
+        this.token = this.auth.getToken();
+        this.persist();
+        this.userLoginSource.next(true);
+      }
+    })
+    return obs;
+  }
+
+  /**
+   * 
+   */
   public async login(email:string, password:string) {
-    let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/users/login`, {
+    let response = await this.fetchService.fetch(`${UrlConfig.SERVER_URL}/users/login`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

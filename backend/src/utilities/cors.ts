@@ -13,7 +13,7 @@ export async function Cors(ctx:Koa.Context, next:any) {
 
   ctx.set('Access-Control-Allow-Origin', "*");
   ctx.set('Access-Control-Allow-Methods', "POST, GET, DELETE, PATCH, OPTIONS");
-  ctx.set('Access-Control-Allow-Headers', "Accept, Content-Type, token");
+  ctx.set('Access-Control-Allow-Headers', "Accept, Content-Type, token, Authorization");
 
   if( ctx.method === "OPTIONS" ) {
     ctx.response.status = 200;

@@ -8,9 +8,12 @@ import {CategoryInstance} from './category';
 
 export interface UserAttribute {
     id?:number;
-    name?:string;
-    email?:string;
+    firstname?:string;
+    lastname?:string;
+    email:string;
     password?:string;
+    new_password?:string;
+    picture_url?:string;
 }
 
 export interface UserInstance extends Sequelize.Instance<UserAttribute>, UserAttribute { 
@@ -41,7 +44,14 @@ const definition = {
     },
     password: {
         type: Sequelize.STRING(128),
-        allowNull: false
+        allowNull: true
+    },
+    new_password: {
+        type: Sequelize.STRING(128),
+        allowNull: true
+    },    
+    picture_url: {
+        type: Sequelize.STRING(150),
     }
 }
 

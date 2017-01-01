@@ -1,0 +1,5 @@
+Create a new category
+<form (ngSubmit)="createCategory()" #categoryForm="ngForm">
+  <input type=text required [(ngModel)]="model.category" name="category" #category="ngModel" placeholder="Category name">
+  <button md-raised-button color="primary" type="submit">Create</button>
+</form>

@@ -2,11 +2,14 @@ import {Component} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {CategoryService} from '../../services/category.service';
 import {Router} from '@angular/router';
+import {MainAnimation} from '../../animations/router.animations';
 
 @Component({
   selector: 'foudou',
   styleUrls: ['./main.component.css'],
-  templateUrl: './main.component.html'
+  templateUrl: './main.component.html',
+  animations: [MainAnimation()],
+  host: {'[@routerTransition]': ''}
 })
 export class MainComponent {
 
@@ -26,21 +29,19 @@ export class MainComponent {
     }
   }
 
-  public selectCategory(id) {
-    this.router.navigate(['/category/', id]);
+  /**
+   * 
+   */
+  private cancelEvent(event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   /**
-   * Creates a new category
-   * TODO: Associate to sub-categories
+   * 
    */
-  public async createCategory() {
-    try {
-      let cat = await this.categoryService.createCategory(this.model.category);
-      this.model = {};
-    } catch(e) {
-      console.log(e);
-    }
+  public selectCategory(id) {
+    this.router.navigate(['/category/', id]);
   }
 
   /**

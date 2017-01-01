@@ -7,7 +7,7 @@ import * as jwt from 'jsonwebtoken';
 import {config} from '../utilities/configuration';
 import {logger} from '../utilities/logger';
 
-const EXCLUDE = ["/users", "/users/login"];
+const EXCLUDE = ["/users", "/users/login", "/auth/google"];
 
 /**
  * 

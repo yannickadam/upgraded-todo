@@ -3,3 +3,40 @@
     right:5px;
     top:5px;
 }
+
+.cat_item {    
+    height:100px;
+    border: 1px solid white;
+    text-align:center;
+    transition: all 500ms ease;
+}
+
+.cat_item span {
+    position:relative;
+    top:calc(50% - (1em / 2));
+}
+
+.cat_item:hover {
+    opacity: 0.9;
+}
+
+.back_green {
+    background-color:green;
+}
+
+.back_grey {
+    background-color: #333333;
+    color: white;
+}
+
+a {
+    color:white;
+    text-decoration: none;
+    display:block;
+    height:100%;
+}
+
+.flex-container {
+    max-height: calc(100% - 95px);
+    overflow-y:auto;
+}

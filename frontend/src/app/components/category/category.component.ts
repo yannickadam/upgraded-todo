@@ -1,11 +1,14 @@
 import {Component} from '@angular/core';
 import {CategoryService} from '../../services/category.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {OtherAnimation} from '../../animations/router.animations';
 
 @Component({
   selector: 'category',
   styleUrls: ['./category.component.css'],
-  templateUrl: './category.component.html'
+  templateUrl: './category.component.html',
+  animations: [OtherAnimation()],
+  host: {'[@routerTransition]': ''}  
 })
 export class CategoryComponent {
 
@@ -15,9 +18,7 @@ export class CategoryComponent {
 
   private model:any = {};
 
-  constructor(private categoryService:CategoryService, private route:ActivatedRoute) {
-
-  }
+  constructor(private categoryService:CategoryService, private route:ActivatedRoute) {}
 
   public async ngOnInit() {     
     this.sub = this.route.params.subscribe(this.categoryHandler.bind(this));   
@@ -80,16 +81,18 @@ export class CategoryComponent {
     }
   }
 
+  /**
+   * Toggles a task between ongoing and completed, and persists on server
+   */
   public async toggleTaskComplete(task) {
-    try {
-      // Get the task
-      //let task = this.category.tasks.find(t=>t.id===taskId);
-      task.completed = !task.completed;
+    task.processing = true;
+    task.completed = !task.completed;
+    try {      
       await this.categoryService.updateTask(task);
     } catch(e) {
       console.log(e);
     }
-
+    task.processing = false;
   }
 
 

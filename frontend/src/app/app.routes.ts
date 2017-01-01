@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './components/main/main.component';
 import { CategoryComponent } from './components/category/category.component';
+import { EditCategoryComponent } from './components/edit_category/edit.category.component';
 
 export const rootRouterConfig: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -12,5 +13,6 @@ export const rootRouterConfig: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'about', component: AboutComponent },
   { path: 'main', component: MainComponent },
-  { path: 'category/:id', component: CategoryComponent }
+  { path: 'category/:id', component: CategoryComponent },
+  { path: 'new_category', component: EditCategoryComponent }
 ];

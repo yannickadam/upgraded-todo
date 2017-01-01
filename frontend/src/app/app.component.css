@@ -11,22 +11,6 @@ header {
     display:flex;
 }
 
-header > span.small {
-    flex: 1 1 20px;
-    position: relative;
-}
-
-header > span.large {
-    flex: 3 1 auto;
-    text-align: center;
-    top: 4px;
-    position:relative;    
-}
-
-header > span.icon {
-    text-align: right;
-}
-
 footer {
     bottom: 0;
     position: fixed;
@@ -36,4 +20,8 @@ footer {
     padding:5px;
     display:flex;
     width:100%;
+}
+
+.pointer {
+    cursor: pointer;
 }

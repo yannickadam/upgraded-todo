@@ -2,7 +2,7 @@
  * 
  */
 import {Injectable} from '@angular/core';
-import {ConfigurationService} from './config.service';
+import {UrlConfig} from '../config/url.config';
 import {UserService} from './user.service';
 import {FetchService} from './fetch.service';
 
@@ -12,7 +12,17 @@ export class CategoryService {
   public rootCategories:any[];
   public allCategories:any[] = [];
 
-  constructor(private config:ConfigurationService, private userService:UserService, private fetchService:FetchService) {}
+  constructor(private userService:UserService, private fetchService:FetchService) {
+    this.userService.userLogin$.subscribe(this.reset.bind(this));        
+  }
+
+  /**
+   * removes everything from memory
+   */
+  public reset() {
+    this.rootCategories = undefined;
+    this.allCategories = [];
+  }
 
   /**
    * Retrieves all categories from the backend, and store them locally
@@ -21,7 +31,7 @@ export class CategoryService {
 
     if( !this.rootCategories ) {
 
-      let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories`, {     
+      let response = await this.fetchService.fetch(`${UrlConfig.SERVER_URL}/categories`, {     
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -36,10 +46,6 @@ export class CategoryService {
 
       this.rootCategories = await response.json();
 
-      // Also insert in allCategories
-      this.rootCategories.forEach(element => {
-        this.allCategories.push(element);
-      });
     }
     
     return this.rootCategories;
@@ -54,7 +60,7 @@ export class CategoryService {
     let category = this.allCategories.find(e=>e.id === id);
     if( !category ) {
     
-      let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories/${id}`, {
+      let response = await this.fetchService.fetch(`${UrlConfig.SERVER_URL}/categories/${id}`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -82,7 +88,7 @@ export class CategoryService {
    */
   public async createCategory(name:string, parentId?:number) {
 
-    let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories`, {
+    let response = await this.fetchService.fetch(`${UrlConfig.SERVER_URL}/categories`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -122,7 +128,7 @@ export class CategoryService {
    */
   public async deleteCategory(id:number, parentId?:number) {
 
-    let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories/${id}`, {
+    let response = await this.fetchService.fetch(`${UrlConfig.SERVER_URL}/categories/${id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -160,7 +166,7 @@ export class CategoryService {
    */
   public async createTask(categoryId:number, taskName:string) {
 
-    let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/categories/${categoryId}/tasks`, {
+    let response = await this.fetchService.fetch(`${UrlConfig.SERVER_URL}/categories/${categoryId}/tasks`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -183,7 +189,7 @@ export class CategoryService {
    * Deletes a single task
    */
   public async deleteTask(categoryId:number, taskId:number) {
-    let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/tasks/${taskId}`, {
+    let response = await this.fetchService.fetch(`${UrlConfig.SERVER_URL}/tasks/${taskId}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -207,7 +213,7 @@ export class CategoryService {
    */
   public async updateTask(task:any):Promise<any> {
     
-    let response = await this.fetchService.fetch(`${this.config.SERVER_URL}/tasks/${task.id}`, {
+    let response = await this.fetchService.fetch(`${UrlConfig.SERVER_URL}/tasks/${task.id}`, {
       method: 'PATCH',
       headers: {
         'Accept': 'application/json',
