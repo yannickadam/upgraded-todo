@@ -44,3 +44,6 @@ build
 
 # Typings
 typings
+
+# ts-node
+ts-node

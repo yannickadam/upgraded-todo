@@ -5,7 +5,7 @@ import * as sqlib from 'sequelize';
 import {config} from './utilities/configuration';
 
 export const db = new sqlib(config.get("database_name"), config.get("database_user"), config.get("database_password"), {
-  host: 'localhost',
+  host: 'database',
   dialect: 'mysql',
 
   pool: {

@@ -13,6 +13,6 @@ export async function prepare() {
   Category.hasMany(Category, {as:'subs', foreignKey:"parentId"});
 
   await db.query("SET FOREIGN_KEY_CHECKS = 0");
-  await db.sync({force:true});
+  await db.sync(/*{force:true}*/);
   await db.query("SET FOREIGN_KEY_CHECKS = 1");
 }
