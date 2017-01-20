@@ -2,6 +2,8 @@
     "name": "project",
     "port" : "3125",
     "database_name" : "upgraded_todo",
+    "database_port" : 3306,
+    "database_host" : "database",
     "database_user" : "root",
     "database_password" : "test",
     "secret" : "secret_key"   
