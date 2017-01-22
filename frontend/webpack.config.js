@@ -1,101 +1,19 @@
-var webpack = require('webpack');
-var path = require('path');
-var webpackMerge = require('webpack-merge');
+/**
+ * @author: @AngularClass
+ */
 
-// Webpack Config
-var webpackConfig = {
-  entry: {
-    'main': './src/main.browser.ts',
-  },
-
-  output: {
-    publicPath: '',
-    path: path.resolve(__dirname, './dist'),
-  },
-
-  plugins: [
-    new webpack.ContextReplacementPlugin(
-      // The (\\|\/) piece accounts for path separators in *nix and Windows
-      /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
-      path.resolve(__dirname, './src'),
-      {
-        // your Angular Async Route paths relative to this root directory
-      }
-    ),
-    /*
-    new webpack.optimize.UglifyJsPlugin({
-      // beautify: true,
-      // mangle: false,
-      output: {
-        comments: false
-      },
-      compress: {
-        warnings: false,
-        conditionals: true,
-        unused: true,
-        comparisons: true,
-        sequences: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true,
-        negate_iife: false // we need this for lazy v8
-      },
-      sourceMap: true
-    }),*/
-
-  ],
-
-  module: {
-    loaders: [
-      // .ts files for TypeScript
-      {
-        test: /\.ts$/,
-        loaders: [
-          'awesome-typescript-loader',
-          'angular2-template-loader',
-          'angular2-router-loader'
-        ]
-      },
-      { test: /\.css$/, loaders: ['to-string-loader', 'css-loader'] },
-      { test: /\.html$/, loader: 'raw-loader' }
-    ]
-  }
-
-};
-
-
-// Our Webpack Defaults
-var defaultConfig = {
-  devtool: 'source-map',
-
-  output: {
-    filename: '[name].bundle.js',
-    sourceMapFilename: '[name].map',
-    chunkFilename: '[id].chunk.js'
-  },
-
-  resolve: {
-    extensions: [ '.ts', '.js' ],
-    modules: [ path.resolve(__dirname, 'node_modules') ]
-  },
-
-  devServer: {
-    historyApiFallback: true,
-    watchOptions: { aggregateTimeout: 300, poll: 1000 }
-  },
-
-  node: {
-    global: true,
-    crypto: 'empty',
-    __dirname: true,
-    __filename: true,
-    process: true,
-    Buffer: false,
-    clearImmediate: false,
-    setImmediate: false
-  }
-};
-
-
-module.exports = webpackMerge(defaultConfig, webpackConfig);
+// Look in ./config folder for webpack.dev.js
+switch (process.env.NODE_ENV) {
+  case 'prod':
+  case 'production':
+    module.exports = require('./config/webpack.prod')({env: 'production'});
+    break;
+  case 'test':
+  case 'testing':
+    module.exports = require('./config/webpack.test')({env: 'test'});
+    break;
+  case 'dev':
+  case 'development':
+  default:
+    module.exports = require('./config/webpack.dev')({env: 'development'});
+}

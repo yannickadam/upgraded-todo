@@ -9,21 +9,29 @@ services:
       - backend_node_modules:/usr/src/app/node_modules
       - /usr/src/app/ts-node
     working_dir: /usr/src/app
-    command: sh -c 'npm install; npm run dev'
+    command: sh -c 'npm install; npm run build; npm start'
     ports:
       - "3125:3125"
     depends_on:
       - database
     
-  frontend:
+  frontend_prod:
+    image: nginx:latest
+    volumes: 
+      - frontend_distribution:/usr/share/nginx/html:ro
+    ports:
+      - "3000:80"
+    depends_on:
+      - frontend_build
+
+  frontend_build:
     image: node:boron
     volumes:
       - ./frontend/:/usr/src/app
       - frontend_node_modules:/usr/src/app/node_modules
+      - frontend_distribution:/usr/src/app/dist
     working_dir: /usr/src/app
-    command: sh -c 'npm install; npm start'
-    ports:
-      - "3000:3000"
+    command: sh -c 'npm install; npm run build:aot:prod'
 
   database:
     image: mysql:5
@@ -39,3 +47,4 @@ volumes:
   upgraded_todo_data:
   backend_node_modules:
   frontend_node_modules:
+  frontend_distribution:

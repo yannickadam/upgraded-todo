@@ -1,19 +1,23 @@
-import {Component, ViewEncapsulation} from '@angular/core';
-import {UserService} from './services/user.service';
-import {Router} from '@angular/router';
+/*
+ * Angular 2 decorators and services
+ */
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AppState } from './app.service';
 
+/*
+ * App Component
+ * Top Level Component
+ */
 @Component({
   selector: 'app',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./app.component.css'],
-  templateUrl: './app.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  constructor( ) {}
 
-  constructor(private userService:UserService, private router:Router) { }
-
-  public Login() {
-    this.router.navigateByUrl("/login");
+  public ngOnInit() {    
   }
 
 }

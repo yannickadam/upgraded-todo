@@ -14,11 +14,11 @@ export class CategoryComponent {
 
   private sub:any;
   private id:number;
-  private category:any;
+  public category:any;
 
   private model:any = {};
 
-  constructor(private categoryService:CategoryService, private route:ActivatedRoute) {}
+  constructor(public categoryService:CategoryService, private route:ActivatedRoute) {}
 
   public async ngOnInit() {     
     this.sub = this.route.params.subscribe(this.categoryHandler.bind(this));   
