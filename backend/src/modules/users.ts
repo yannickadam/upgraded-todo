@@ -91,7 +91,10 @@ export async function Google(ctx:Koa.Context, next:any) {
         ctx.response.status = 201;        
     }
 
-    ctx.body = { data: {token: jwt.sign({id:user.id}, config.get("secret") ) }};
+    ctx.body = { data: {token: jwt.sign({id:user.id}, config.get("secret") ), 
+                        firstname: user.firstname,
+                        lastname: user.lastname,
+                        picture_url: user.picture_url }}; 
 
     /*
     // Step 3a. Link user account.

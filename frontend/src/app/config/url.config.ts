@@ -3,5 +3,5 @@
  */
 
 export class UrlConfig  {
-  public static SERVER_URL:string =  "https://todo.yannickadam.com/api";
+  public static SERVER_URL:string =  "http://localhost:3125";
 };

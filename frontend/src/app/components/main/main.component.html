@@ -3,10 +3,10 @@
     fxLayout="row"
     fxLayoutAlign="start"
     fxLayoutWrap="wrap">
-  <div fxFlex="33" fxFlex.xs="50" fxFlex.sm="33" fxFlex.md="20" fxFlex.lg="10" fxFlex.xl="5" *ngFor="let cat of categories" class="cat_item back_green pointer" (click)="selectCategory(cat.id)">
+  <div fxFlex="33" fxFlex.xs="50" fxFlex.sm="33" fxFlex.md="20" fxFlex.lg="10" fxFlex.xl="8" *ngFor="let cat of categories" class="cat_item back_green pointer" (click)="selectCategory(cat.id)">
     <span>{{cat.name}}</span>
   </div>
-  <div fxFlex="33" fxFlex.xs="50" fxFlex.sm="33" fxFlex.md="20" fxFlex.lg="10" fxFlex.xl="5" class="cat_item back_grey pointer">
+  <div fxFlex="33" fxFlex.xs="50" fxFlex.sm="33" fxFlex.md="20" fxFlex.lg="10" fxFlex.xl="8" class="cat_item back_grey pointer">
     <a [routerLink]="['/new_category']">
       <span>New Category</span>
     </a>

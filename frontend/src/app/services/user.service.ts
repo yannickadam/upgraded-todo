@@ -14,8 +14,11 @@ export class UserService {
   private userLoginSource = new Subject<boolean>();
 
   public userLogin$ = this.userLoginSource.asObservable();
-  public token:string;
+  public user:any;
   
+  public get token() {
+    return this.user?this.user.token:undefined;
+  }
 
   constructor(private fetchService:FetchService, private auth:AuthService) {
     this.revive();
@@ -33,8 +36,8 @@ export class UserService {
    * To logout, we simply forget our token.
    */
   public logout() {
-    this.token = undefined;
-    localStorage.removeItem("token");
+    this.user = undefined;
+    localStorage.removeItem("user");
   }
 
 
@@ -44,8 +47,15 @@ export class UserService {
   public loginWithSocial(network:string) {
     const obs = this.auth.authenticate(network).share();
     obs.subscribe({
+      next: (response) => {
+        try {
+          this.user = response?response.json().data:null;
+        } catch(e) {
+
+        }
+        
+      },
       complete: () => {
-        this.token = this.auth.getToken();
         this.persist();
         this.userLoginSource.next(true);
       }
@@ -68,7 +78,7 @@ export class UserService {
 
     if( response.status === 200 ) {
       let body:any = await response.json();
-      this.token = body.data.token;
+      this.user = body.data;
       this.persist();
     }
 
@@ -76,12 +86,14 @@ export class UserService {
   }
 
   private persist() {
-    localStorage.setItem("token", this.token);
+    localStorage.setItem("user", JSON.stringify(this.user));
   }
 
   private revive() {
-    let data = localStorage.getItem("token");
-    this.token = data;
+    let data = localStorage.getItem("user");
+    try {
+      this.user = JSON.parse(data);
+    } catch(e) {}      
   }
 
 
