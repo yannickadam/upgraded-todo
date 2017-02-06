@@ -1,4 +1,4 @@
-<div class="login" *ngIf="!userService.isLoggedIn()">
+<div class="login" *ngIf="!user">
 
   <md-card>
     <md-card-title>Login with Social</md-card-title>
@@ -20,7 +20,7 @@
 
 </div>
 
-<div *ngIf="userService.isLoggedIn()" class="logout">
+<div *ngIf="user" class="logout">
 
   <md-card>
     <md-card-title>Account Management</md-card-title>

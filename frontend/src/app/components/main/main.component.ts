@@ -1,32 +1,44 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {UserService} from '../../services/user.service';
-import {CategoryService} from '../../services/category.service';
 import {Router} from '@angular/router';
 import {MainAnimation} from '../../animations/router.animations';
 
+import { Store } from '@ngrx/store';
+import { Category } from '../../pojos/category';
+import { ActionTypes } from "../../stores/categories/categories.actions";
+import { CategoriesState } from "../../stores/categories/categories.reducers";
+
+import {Observable} from 'rxjs/Observable';
+
 @Component({
-  selector: 'foudou',
+  selector: 'main-component',
   styleUrls: ['./main.component.css'],
   templateUrl: './main.component.html',
   animations: [MainAnimation()],
-  host: {'[@routerTransition]': ''}
+  host: {'[@routerTransition]': ''},
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent {
 
-  public categories:any[] = [];
+  public categories:Observable<Category[]>;
   public model:any = {};
 
-  constructor(private userService:UserService, private categoryService:CategoryService, private router:Router) {}
+  constructor(private router:Router, private store:Store<any>, private ref:ChangeDetectorRef) {}
 
   /**
    * Retrieve the current state of categories when the component is created.
    */
   async ngOnInit() {
-    try {
-      this.categories = await this.categoryService.getCategories();
-    } catch(e) {
-      console.log(e);
-    }
+
+    this.categories = this.store.select(s=>s.categories)
+                                .map(state => state.all)
+                                .filter( (c:Category) => !c.parentId );
+    /*
+    this.store.select("categories").subscribe( (state:CategoriesState)=> {
+      this.categories = state.root;
+      this.ref.markForCheck();
+    });*/
+    this.store.dispatch( {type: ActionTypes.LOAD_ALL} );
   }
 
   /**
@@ -50,7 +62,7 @@ export class MainComponent {
    */
   public async deleteCategory(id) {
     try {
-      await this.categoryService.deleteCategory(id);
+      //await this.categoryService.deleteCategory(id);
     } catch(e) {
       console.log(e);
     }

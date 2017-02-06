@@ -6,14 +6,23 @@ import {UrlConfig} from '../config/url.config';
 import {UserService} from './user.service';
 import {FetchService} from './fetch.service';
 
+import { Store } from '@ngrx/store';
+import { User } from '../pojos/user';
+
 @Injectable()
 export class CategoryService {
 
   public rootCategories:any[];
   public allCategories:any[] = [];
+  public user:User = null;
 
-  constructor(private userService:UserService, private fetchService:FetchService) {
-    this.userService.userLogin$.subscribe(this.reset.bind(this));        
+  constructor(private fetchService:FetchService, private store:Store<any>) {
+    
+    this.store.select("user").subscribe( (user:User) => {
+      // On any change, reset our data
+      this.reset();
+      this.user = user;
+    }); 
   }
 
   /**
@@ -36,7 +45,7 @@ export class CategoryService {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'token': this.userService.token
+          'token': this.user.token
         }
       });
       
@@ -65,7 +74,7 @@ export class CategoryService {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'token': this.userService.token
+          'token': this.user.token
         }
       });
     
@@ -93,7 +102,7 @@ export class CategoryService {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'token': this.userService.token
+        'token': this.user.token
       },
       body: JSON.stringify({name:name, parentId:parentId})
     });
@@ -133,7 +142,7 @@ export class CategoryService {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'token': this.userService.token
+        'token': this.user.token
       }
     });
 
@@ -171,7 +180,7 @@ export class CategoryService {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'token': this.userService.token
+        'token': this.user.token
       },
       body: JSON.stringify({name:taskName})
     });
@@ -194,7 +203,7 @@ export class CategoryService {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'token': this.userService.token
+        'token': this.user.token
       }
     });
 
@@ -218,7 +227,7 @@ export class CategoryService {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'token': this.userService.token
+        'token': this.user.token
       },
       body: JSON.stringify(task)
     });

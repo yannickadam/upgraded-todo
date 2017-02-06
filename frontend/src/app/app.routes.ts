@@ -7,9 +7,11 @@ import { MainComponent } from './components/main/main.component';
 import { CategoryComponent } from './components/category/category.component';
 import { EditCategoryComponent } from './components/edit_category/edit.category.component';
 
+import { HomeGuard } from './components/home/home.guard';
+
 export const ROUTES: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [HomeGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'about', component: AboutComponent },
   { path: 'main', component: MainComponent },

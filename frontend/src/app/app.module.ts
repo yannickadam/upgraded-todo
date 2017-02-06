@@ -29,13 +29,22 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import {Ng2UiAuthModule} from 'ng2-ui-auth';
 import {AuthConfig} from './config/oauth.config';
 
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducer } from './stores';
+import { UserEffects } from './stores/user/user.effects';
+import { CategoryEffects } from './stores/categories/categories.effects';
+
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { HomeGuard } from './components/home/home.guard';
+
 import '../styles/styles.scss';
 import '../styles/headings.css';
 
 // Application wide providers
 const APP_PROVIDERS = [ 
   CategoryService,
-  UserService,
   FetchService     
 ];
 
@@ -61,11 +70,16 @@ const APP_PROVIDERS = [
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
-    Ng2UiAuthModule.forRoot(AuthConfig)
+    Ng2UiAuthModule.forRoot(AuthConfig),
+    StoreModule.provideStore(reducer),
+    StoreDevtoolsModule.instrumentOnlyWithExtension({maxAge:10}),
+    EffectsModule.run(UserEffects),
+    EffectsModule.run(CategoryEffects)
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS   
+    APP_PROVIDERS,
+    HomeGuard
   ]
 })
 export class AppModule {

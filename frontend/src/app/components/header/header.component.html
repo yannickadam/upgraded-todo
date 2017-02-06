@@ -1,10 +1,10 @@
 <span class="small"></span>
 <span class="large">Upgraded Todo</span>
 <span class="small icon">
-    <button md-icon-button (click)="Login()" *ngIf="!userService.user">
+    <button md-icon-button (click)="Login()" *ngIf="!user">
         <md-icon>account_circle</md-icon>
     </button>
-    <button *ngIf="userService.user" (click)="Login()">
-        <img src="{{userService.user?.picture_url}}">
+    <button *ngIf="user" (click)="Login()">
+        <img src="{{user?.picture_url}}">
     </button>
 </span>

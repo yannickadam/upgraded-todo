@@ -47,6 +47,6 @@ module.exports = {
     { name: 'theme-color', content: '#00bcd4' }
   ], 
   script: [
-    {src: 'https://rawgit.com/web-animations/web-animations-js/master/web-animations.min.js'}
+    {src: '/assets/js/web-animations.min.js', async: "async"}
   ]
 };
