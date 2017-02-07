@@ -1,10 +1,14 @@
-<span class="small"></span>
+<span class="small">
+    <button md-icon-button (click)="Back()" *ngIf="!!(selectedCategory$|async)">
+        <md-icon>arrow_back</md-icon>
+    </button>
+</span>
 <span class="large">Upgraded Todo</span>
 <span class="small icon">
-    <button md-icon-button (click)="Login()" *ngIf="!user">
+    <button md-icon-button (click)="Login()" *ngIf="!(user$|async)">
         <md-icon>account_circle</md-icon>
     </button>
     <button *ngIf="user" (click)="Login()">
-        <img src="{{user?.picture_url}}">
+        <img src="{{(user$ | async)?.picture_url}}">
     </button>
 </span>

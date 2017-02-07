@@ -5,10 +5,11 @@ import { Task } from '../../pojos/task';
 import * as category from './categories.actions';
 
 export interface CategoriesState {
-  all: Category[];  
+  all: Category[];
+  selected: Category;
 }
 
-const initial:CategoriesState = { all:[] };
+const initial:CategoriesState = { all:[], selected:null };
 
 export function categoryReducer(state: CategoriesState = initial, action: Action):CategoriesState {
     switch (action.type) {
@@ -33,7 +34,8 @@ export function categoryReducer(state: CategoriesState = initial, action: Action
                         return updatedCat;
                     }
                     return c;    
-                })
+                }),
+                selected: state.selected
             }
         }
 
@@ -41,23 +43,26 @@ export function categoryReducer(state: CategoriesState = initial, action: Action
         case category.ActionTypes.DELETE_CATEGORY:
         {
             console.log("CREATE/UPDATE/DELETE CATEGORY REDUCER", action, state);
+            debugger;
             const newCategory = <Category>(action.payload).duplicate();
             newCategory.processing = true;
             const updatedAll = [...state.all];
             const idxCat = updatedAll.findIndex(c=>c.id == newCategory.id);
-            if( idxCat ) {
+            if( idxCat > -1 ) {
                 updatedAll[idxCat] = newCategory;
             } else {
                 updatedAll.push(newCategory);
             }
             return {
-                all: updatedAll
+                all: updatedAll,
+                selected: state.selected
             }
         }
 
         case category.ActionTypes.CREATE_CATEGORY_COMPLETE:
         {
             console.log("CATEGORY CREATION/UPDATE COMPLETE REDUCER", action, state);
+            debugger;
             const newCat:Category = action.payload;
             const updated = [...state.all];
             const index = updated.findIndex( c => c.uuid == newCat.uuid );
@@ -78,7 +83,8 @@ export function categoryReducer(state: CategoriesState = initial, action: Action
                 updated.push(newCat);
             }
             return {
-                all: updated
+                all: updated,
+                selected: state.selected
             }
         }
 
@@ -106,7 +112,8 @@ export function categoryReducer(state: CategoriesState = initial, action: Action
             }
 
             return {
-                all: upAll
+                all: upAll,
+                selected: state.selected
             }            
         }
 
@@ -118,7 +125,8 @@ export function categoryReducer(state: CategoriesState = initial, action: Action
             const newAll = state.all.map( c => rootCategories.find( rc => rc.id == c.id ) || c );
             rootCategories.forEach( rc => newAll.find( c => c.id==rc.id )?null:newAll.push(rc));
             return {
-              all: newAll
+              all: newAll,
+              selected: state.selected
             };
         }
 
@@ -136,7 +144,8 @@ export function categoryReducer(state: CategoriesState = initial, action: Action
                 otherAll.push(receivedCategory);
             }
             return {
-                all: otherAll
+                all: otherAll,
+                selected: receivedCategory
             };
         }
 
@@ -159,7 +168,8 @@ export function categoryReducer(state: CategoriesState = initial, action: Action
                 }                
             }
             return {
-                all: updatedCategories
+                all: updatedCategories,
+                selected: state.selected
             }
         }
 
@@ -181,8 +191,17 @@ export function categoryReducer(state: CategoriesState = initial, action: Action
             }
 
             return {
-                all: upAll
+                all: upAll,
+                selected: state.selected
             }              
+        }
+
+        case category.ActionTypes.DESELECT_CATEGORY:
+        {
+            return {
+                all: state.all,
+                selected: null
+            }
         }
 
         default:

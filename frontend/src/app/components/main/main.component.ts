@@ -5,7 +5,7 @@ import {MainAnimation} from '../../animations/router.animations';
 
 import { Store } from '@ngrx/store';
 import { Category } from '../../pojos/category';
-import { ActionTypes } from "../../stores/categories/categories.actions";
+import { LoadAllAction, DeselectCategoryAction } from "../../stores/categories/categories.actions";
 import { CategoriesState } from "../../stores/categories/categories.reducers";
 
 import {Observable} from 'rxjs/Observable';
@@ -32,13 +32,9 @@ export class MainComponent {
 
     this.categories = this.store.select(s=>s.categories)
                                 .map(state => state.all)
-                                .filter( (c:Category) => !c.parentId );
-    /*
-    this.store.select("categories").subscribe( (state:CategoriesState)=> {
-      this.categories = state.root;
-      this.ref.markForCheck();
-    });*/
-    this.store.dispatch( {type: ActionTypes.LOAD_ALL} );
+                                .map( (c:Category[]) => c.filter(ic=>!ic.parentId) );
+    this.store.dispatch( new DeselectCategoryAction());
+    this.store.dispatch( new LoadAllAction() );    
   }
 
   /**

@@ -12,6 +12,7 @@ export const ActionTypes = {
   CREATE_CATEGORY_COMPLETE:   type('[Category] Create Category Completed'),
   DELETE_CATEGORY:            type('[Category] Delete Category'),
   DELETE_CATEGORY_COMPLETE:   type('[Category] Delete Category Completed'),
+  DESELECT_CATEGORY:          type('[Category] Deselect Category'),
   CREATE_TASK:                type('[Task] Create Task'),
   CREATE_TASK_COMPLETE:       type('[Task] Create Task Completed'),
   UPDATE_TASK:                type('[Task] Update Task'),
@@ -88,6 +89,11 @@ export class DeleteTaskAction implements Action {
 export class DeleteTaskCompleteAction implements Action {
   type = ActionTypes.DELETE_TASK_COMPLETE;
   constructor(public payload: Task) {}
+}
+
+export class DeselectCategoryAction implements Action {
+  type = ActionTypes.DESELECT_CATEGORY;
+  constructor() {}
 }
 
 export type Actions
