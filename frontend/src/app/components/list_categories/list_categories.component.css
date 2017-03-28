@@ -1,8 +1,4 @@
-.menu {
-    position: absolute;
-    right:5px;
-    top:5px;
-}
+/* Top Categories */
 
 .cat_item {    
     height:100px;
@@ -34,6 +30,13 @@ a {
     text-decoration: none;
     display:block;
     height:100%;
+    position: relative;
+}
+
+.cat_item button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
 }
 
 .flex-container {

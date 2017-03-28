@@ -8,7 +8,7 @@
     <button md-icon-button (click)="Login()" *ngIf="!(user$|async)">
         <md-icon>account_circle</md-icon>
     </button>
-    <button *ngIf="user" (click)="Login()">
+    <button *ngIf="(user$|async)" (click)="Login()">
         <img src="{{(user$ | async)?.picture_url}}">
     </button>
 </span>

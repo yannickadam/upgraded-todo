@@ -1,0 +1,19 @@
+<div class="flex-container"
+    fxFlex
+    fxLayout="row"
+    fxLayoutAlign="start"
+    fxLayoutWrap="wrap">
+  <div fxFlex="33" fxFlex.xs="50" fxFlex.sm="33" fxFlex.md="20" fxFlex.lg="10" fxFlex.xl="8" *ngFor="let cat of categories" class="cat_item back_green pointer">
+      <a [routerLink]="['/category/', cat.id]"><span>{{cat.name}}</span><button md-mini-fab (click)="cancelEvent($event); deleteCategory(cat.id)">X</button></a>
+  </div>
+  <div fxFlex="33" fxFlex.xs="50" fxFlex.sm="33" fxFlex.md="20" fxFlex.lg="10" fxFlex.xl="8" class="cat_item back_grey pointer">
+    <a [routerLink]="['/new_category']">
+      <span>New Category</span>
+    </a>
+  </div>
+</div>
+
+<form (ngSubmit)="createCategory()" #categoryForm="ngForm">
+  <input type=text required [(ngModel)]="model.category" name="cat" #cat="ngModel">
+  <button type="submit">Create</button>
+</form>

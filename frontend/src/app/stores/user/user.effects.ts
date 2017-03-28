@@ -22,7 +22,7 @@ export class UserEffects {
   search$: Observable<Action> = this.actions$
     .ofType( user.ActionTypes.LOGIN )
     .map((action: user.LoginAction) => action.payload)
-    .switchMap( (authProvider:string) => {
+    .mergeMap( (authProvider:string) => {
 
       const obs = this.auth.authenticate(authProvider);
       return obs.map( r => r.json() ).map( data => {

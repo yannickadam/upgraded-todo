@@ -2,17 +2,8 @@
   
   Category {{ (category | async)?.name}}
 
-  <h3>Categories</h3>
-  <ul>
-    <li *ngFor="let sub of (category | async)?.subs">
-      <a [routerLink]="['/category/', sub.id]">{{sub.name}}</a> <button (click)="deleteCategory(sub.id)">Delete</button>
-    </li>
-  </ul> 
-
-  <form (ngSubmit)="createCategory()" #categoryForm="ngForm">
-    <input type=text required [(ngModel)]="model.category" name="cat" #cat="ngModel">
-    <button type="submit">Create</button>
-  </form>
+  <h3>Sub-Categories</h3>
+  <list-categories [categories]="(category | async)?.subs"></list-categories>
 
   <h3>Tasks</h3>
   <ul>

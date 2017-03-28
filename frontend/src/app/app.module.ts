@@ -18,6 +18,7 @@ import { MainComponent } from './components/main/main.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CategoryComponent } from './components/category/category.component';
 import { EditCategoryComponent } from './components/edit_category/edit.category.component';
+import { ListCategoriesComponent } from './components/list_categories/list_categories.component';
 
 import { CategoryService } from './services/category.service';
 import { UserService } from './services/user.service';
@@ -61,7 +62,8 @@ const APP_PROVIDERS = [
     MainComponent,
     HeaderComponent,
     CategoryComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    ListCategoriesComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

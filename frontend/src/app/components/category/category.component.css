@@ -12,8 +12,8 @@ li {
     padding: 0;
     margin: 0 0 1px 0;
     width: calc(100% - 10px);
-    background-color: green;
-    color: white;
+    background-color: #dddddd;
+    color: black;
     font-size:0.8em;
     height:24px;
 }
